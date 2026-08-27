@@ -29,3 +29,25 @@ jobs:
 
       - name: Run tests
         run: python -m pytest
+        
+  deploy:
+    needs: test
+
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          /usr/bin/python3 -m venv .venv
+          .venv/bin/pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          .venv/bin/python -m pytest
+
+      - name: Restart application
+        run: |
+          systemctl restart cicd-fast
