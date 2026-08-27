@@ -50,4 +50,4 @@ jobs:
 
       - name: Restart application
         run: |
-          systemctl restart cicd-fast
+          sudo systemctl restart cicd-fast.service
